@@ -8,7 +8,11 @@ Use with SqlDelight `2.1.0`
 
 ---
 
-VectorChord Module https://docs.vectorchord.ai/
+SqlDelight VectorChord Module
+
+https://github.com/tensorchord/VectorChord
+
+https://docs.vectorchord.ai/
 
 ## Usage
 
@@ -35,6 +39,10 @@ sqldelight {
 `vectorchord-module` published in Maven Central https://central.sonatype.com/artifact/io.github.griffio/sqldelight-vectorchord/versions
 
 `io.github.griffio:sqldelight-vectorchord:0.0.1`
+
+---
+
+Run the offical VectorChord Postgresql Docker image for easier setup
 
 ```shell
 docker run \
