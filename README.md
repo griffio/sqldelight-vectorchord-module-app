@@ -8,6 +8,8 @@ Use with SqlDelight `2.1.0`
 
 ---
 
+VectorChord Module https://docs.vectorchord.ai/
+
 ## Usage
 
 Instead of a new dialect or adding PostgreSql extensions into the core PostgreSql grammar e.g. https://postgis.net/ and https://github.com/pgvector/pgvector
