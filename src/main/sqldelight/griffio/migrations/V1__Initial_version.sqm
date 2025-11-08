@@ -1,0 +1,17 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE items (
+    id BIGSERIAL PRIMARY KEY,
+    embedding VECTOR(3),
+    bits BIT(3)
+);
+
+CREATE INDEX idx_embedding_hnsw ON items USING hnsw (embedding vector_l2_ops);
+
+CREATE INDEX idx_embedding_ivfflat ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100);
+
+CREATE INDEX idx_embedding_vchordrq ON items USING vchordrq (embedding vector_l2_ops)
+WITH (options = '
+ [build.internal]
+ lists = [1000]
+');
