@@ -101,7 +101,6 @@ enum class VectorChordSqlType(override val javaType: TypeName) : DialectType {
     }
 }
 
-// Change to inheritance so that definitionType can be called by polymorphism - not possible with delegation
 private class VectorChordTypeResolver(private val parentResolver: TypeResolver) : PostgreSqlTypeResolver(parentResolver) {
 
     override fun booleanBinaryExprTypes(): Array<DialectType> {
@@ -111,7 +110,7 @@ private class VectorChordTypeResolver(private val parentResolver: TypeResolver) 
     override fun definitionType(typeName: SqlTypeName): IntermediateType {
         return when (typeName) {
             is VectorChordTypeName -> if (typeName.bitDataType != null) IntermediateType(VectorChordSqlType.BIT) else IntermediateType(VectorChordSqlType.VECTOR)
-            else -> super.definitionType(typeName)
+            else -> parentResolver.definitionType(typeName)
         }
     }
 
