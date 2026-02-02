@@ -1,10 +1,10 @@
-# SqlDelight 2.1.x Postgresql VectorChord module support prototype 
+# SqlDelight 2.2.x Postgresql VectorChord module support prototype 
 
 https://github.com/cashapp/sqldelight
 
 **Experimental**
 
-Use with SqlDelight `2.1.0`
+Use with SqlDelight `2.2.1`
 
 ---
 
@@ -30,7 +30,7 @@ sqldelight {
             packageName.set("griffio.queries")
             dialect(libs.sqldelight.postgresql.dialect)
             module(project(":vectorchord-module")) // module can be local project
-            // or external dependency module("io.github.griffio:sqldelight-vectorchord:0.0.1")
+            // or external dependency module("io.github.griffio:sqldelight-vectorchord:0.0.2")
         }
     }
 }
@@ -38,18 +38,18 @@ sqldelight {
 
 `vectorchord-module` published in Maven Central https://central.sonatype.com/artifact/io.github.griffio/sqldelight-vectorchord/versions
 
-`io.github.griffio:sqldelight-vectorchord:0.0.1`
+`io.github.griffio:sqldelight-vectorchord:0.0.2`
 
 ---
 
-Run the offical VectorChord Postgresql Docker image for easier setup
+Run the official VectorChord Postgresql Docker image for easier setup
 
 ```shell
 docker run \
   --name vectorchord-demo \
-  -e POSTGRES_PASSWORD=mysecretpassword \
+  -e POSTGRES_PASSWORD=postgres \
   -p 5432:5432 \
-  -d ghcr.io/tensorchord/vchord-postgres:pg18-v0.5.3
+  -d tensorchord/vchord-suite:pg18-latest
 ```
 
 ```sql
