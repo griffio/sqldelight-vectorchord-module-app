@@ -8,7 +8,7 @@ private fun getSqlDriver() = PGSimpleDataSource().apply {
     setURL("jdbc:postgresql://localhost:5432/postgres?options=-c%20vchordrq.probes=1")
     applicationName = "App Main"
     user = "postgres"
-    password = "mysecretpassword"
+    password = "postgres"
 }.asJdbcDriver()
 
 fun main() {
