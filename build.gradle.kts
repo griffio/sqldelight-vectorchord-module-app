@@ -9,7 +9,6 @@ group = "griffio"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    maven(url = "https://central.sonatype.com/repository/maven-snapshots/")
     mavenCentral()
     google()
 }
@@ -49,7 +48,7 @@ tasks {
 flyway {
     url = "jdbc:postgresql://localhost:5432/postgres"
     user = "postgres"
-    password = "mysecretpassword"
+    password = "postgres"
     locations = arrayOf("filesystem:${migrationsDir.get().asFile}")
     baselineOnMigrate = true
     baselineVersion = "0"
