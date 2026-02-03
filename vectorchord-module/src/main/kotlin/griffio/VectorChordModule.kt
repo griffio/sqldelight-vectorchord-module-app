@@ -101,6 +101,8 @@ enum class VectorChordSqlType(override val javaType: TypeName) : DialectType {
     }
 }
 
+// Change to inheritance where some implementations may need to call `super` - not possible with delegation
+// parentResolver is called to delegate to the next TypeResolver in the chain
 private class VectorChordTypeResolver(private val parentResolver: TypeResolver) : PostgreSqlTypeResolver(parentResolver) {
 
     override fun booleanBinaryExprTypes(): Array<DialectType> {
@@ -110,14 +112,14 @@ private class VectorChordTypeResolver(private val parentResolver: TypeResolver) 
     override fun definitionType(typeName: SqlTypeName): IntermediateType {
         return when (typeName) {
             is VectorChordTypeName -> if (typeName.bitDataType != null) IntermediateType(VectorChordSqlType.BIT) else IntermediateType(VectorChordSqlType.VECTOR)
-            else -> parentResolver.definitionType(typeName)
+            else -> parentResolver.definitionType(typeName) // postgresql.PostgreSqlTypeResolver.definitionType calls parentResolver
         }
     }
 
     override fun resolvedType(expr: SqlExpr): IntermediateType {
         return when (expr) {
             is VectorChordExtensionExprImpl -> expr.vectorExtension()
-            else -> super.resolvedType(expr)
+            else -> parentResolver.resolvedType(expr) // postgresql.PostgreSqlTypeResolver.resolvedType calls parentResolver
         }
     }
 
@@ -147,6 +149,6 @@ private class VectorChordTypeResolver(private val parentResolver: TypeResolver) 
             "sum" -> IntermediateType(VectorChordSqlType.VECTOR)
             "vector_dims" -> IntermediateType(PostgreSqlType.INTEGER)
             "vector_norm" -> IntermediateType(PrimitiveType.REAL)
-            else -> super.functionType(functionExpr)
+            else -> super.functionType(functionExpr) // postgresql.PostgreSqlTypeResolver.functionType calls parentResolver
         }
 }
